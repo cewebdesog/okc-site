@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OKC Thunder 2025-26 - 艾特的OKC</title>
+    <meta name="description" content="俄克拉荷马城雷霆队 2025-2026 赛季回顾">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --thunder-blue: #007AC1;
+            --thunder-dark: #002D62;
+            --thunder-orange: #F05133;
+            --bg: #f5f5f7;
+            --card-bg: #fff;
+            --text: #1d1d1f;
+            --text-muted: #86868b;
+            --border: #e8e8ed;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== Hero ===== */
+        .hero {
+            background: linear-gradient(135deg, var(--thunder-dark) 0%, var(--thunder-blue) 50%, #0090d8 100%);
+            color: #fff;
+            text-align: center;
+            padding: 72px 28px 56px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 70%, rgba(253,185,39,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 30%, rgba(240,81,51,0.06) 0%, transparent 50%);
+        }
+        .hero > * { position: relative; }
+
+        .hero-back {
+            display: inline-block;
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            font-size: 0.85rem;
+            margin-bottom: 32px;
+            transition: color 0.2s;
+        }
+        .hero-back:hover { color: #fff; }
+
+        .hero-logo { font-size: 4.5rem; margin-bottom: 12px; }
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+        .hero .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 32px;
+            letter-spacing: 1px;
+        }
+
+        .hero-record {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .hero-stat { text-align: center; }
+        .hero-stat-num { font-size: 2rem; font-weight: 800; letter-spacing: -0.5px; }
+        .hero-stat-label {
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.55);
+            margin-top: 2px;
+        }
+
+        /* ===== 主体 ===== */
+        .main { max-width: 840px; margin: 0 auto; padding: 56px 28px 80px; }
+
+        .section { margin-bottom: 48px; }
+
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 0.5px;
+        }
+
+        /* ===== 卡片 ===== */
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 24px 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+
+        /* ===== 数据卡片网格 ===== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+        }
+        .stat-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px 18px;
+            text-align: center;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.03);
+        }
+        .stat-card .stat-val {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--thunder-blue);
+            letter-spacing: -0.5px;
+        }
+        .stat-card .stat-detail {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            margin-top: 4px;
+        }
+        .stat-card .stat-rank {
+            font-size: 0.78rem;
+            color: var(--thunder-orange);
+            font-weight: 600;
+            margin-top: 2px;
+        }
+
+        /* ===== 季后赛 ===== */
+        .playoff-path {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            font-size: 0.92rem;
+        }
+        .playoff-round {
+            background: #f5f5f7;
+            border-radius: 14px;
+            padding: 14px 18px;
+            text-align: center;
+            min-width: 110px;
+        }
+        .playoff-round .round-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+        }
+        .playoff-round .round-result {
+            font-weight: 700;
+            color: var(--thunder-blue);
+            font-size: 1.05rem;
+        }
+        .playoff-round.win { background: #f1f8e9; }
+        .playoff-round.win .round-result { color: #2e7d32; }
+        .playoff-round.upcoming { background: #fff8e1; }
+        .playoff-round.upcoming .round-result { color: var(--thunder-orange); }
+        .playoff-round small { display: block; color: var(--text-muted); margin-top: 2px; font-size: 0.78rem; }
+        .playoff-arrow { color: #c7c7cc; font-size: 1.3rem; font-weight: 300; }
+
+        /* ===== 表格 ===== */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.88rem; }
+        thead th {
+            padding: 12px 10px 14px;
+            text-align: left;
+            font-weight: 500;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            border-bottom: 1px solid var(--border);
+            white-space: nowrap;
+        }
+        tbody td {
+            padding: 11px 10px;
+            border-bottom: 1px solid #f5f5f7;
+        }
+        tbody tr:hover { background: #fafafa; }
+        .player-star { font-weight: 700; color: var(--text); }
+        td.highlight { color: var(--thunder-orange); font-weight: 600; }
+
+        /* ===== 页脚 ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 28px 48px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer a { color: var(--text-muted); text-decoration: none; }
+        .footer a:hover { color: var(--text); }
+
+        @media (max-width: 640px) {
+            .hero { padding: 48px 20px 40px; }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-record { gap: 28px; }
+            .hero-stat-num { font-size: 1.4rem; }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .playoff-path { flex-direction: column; align-items: stretch; }
+            .playoff-arrow { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <a href="index.html" class="hero-back">← 返回</a>
+        <div class="hero-logo">⚡</div>
+        <h1>Oklahoma City Thunder</h1>
+        <p class="subtitle">2025–2026 赛季</p>
+        <div class="hero-record">
+            <div class="hero-stat">
+                <div class="hero-stat-num">64–18</div>
+                <div class="hero-stat-label">常规赛战绩</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">#1</div>
+                <div class="hero-stat-label">西部排名</div>
+            </div>
+            <div class="hero-stat">
+                <div class="hero-stat-num">8–0</div>
+                <div class="hero-stat-label">季后赛至今</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main">
+
+        <div class="section">
+            <div class="section-title">球队数据</div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-val">119.0</div>
+                    <div class="stat-detail">场均得分</div>
+                    <div class="stat-rank">联盟第 5</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">107.7</div>
+                    <div class="stat-detail">防守效率</div>
+                    <div class="stat-rank">联盟第 1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">+11.1</div>
+                    <div class="stat-detail">净效率值</div>
+                    <div class="stat-rank">联盟第 1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">118.9</div>
+                    <div class="stat-detail">进攻效率</div>
+                    <div class="stat-rank">联盟第 7</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">11.04</div>
+                    <div class="stat-detail">SRS</div>
+                    <div class="stat-rank">联盟第 1</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-val">764,842</div>
+                    <div class="stat-detail">总上座人数</div>
+                    <div class="stat-rank">联盟第 14</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">季后赛征程</div>
+            <div class="card">
+                <div class="playoff-path">
+                    <div class="playoff-round win">
+                        <div class="round-label">首轮</div>
+                        <div class="round-result">4 – 0</div>
+                        <small>菲尼克斯太阳</small>
+                    </div>
+                    <span class="playoff-arrow">→</span>
+                    <div class="playoff-round win">
+                        <div class="round-label">半决赛</div>
+                        <div class="round-result">4 – 0</div>
+                        <small>洛杉矶湖人</small>
+                    </div>
+                    <span class="playoff-arrow">→</span>
+                    <div class="playoff-round upcoming">
+                        <div class="round-label">西部决赛</div>
+                        <div class="round-result">1 – 1</div>
+                        <small>圣安东尼奥马刺</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">核心球员</div>
+            <div class="card table-wrap">
+                <table>
+                    <thead>
+                        <tr><th>#</th><th>球员</th><th>位置</th><th>出场</th><th>分钟</th><th>得分</th><th>篮板</th><th>助攻</th><th>抢断</th><th>盖帽</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>2</td><td class="player-star">谢伊·吉尔杰斯-亚历山大</td><td>控卫</td><td>68</td><td>33.3</td><td class="highlight">31.1</td><td>4.3</td><td>6.6</td><td>1.4</td><td>0.8</td></tr>
+                        <tr><td>7</td><td class="player-star">切特·霍姆格伦</td><td>大前/中锋</td><td>69</td><td>29.0</td><td class="highlight">17.1</td><td>8.9</td><td>1.7</td><td>0.6</td><td>1.9</td></tr>
+                        <tr><td>8</td><td class="player-star">杰伦·威廉姆斯</td><td>分卫</td><td>33</td><td>28.4</td><td class="highlight">17.1</td><td>4.6</td><td>5.5</td><td>1.2</td><td>0.3</td></tr>
+                        <tr><td>25</td><td>阿杰·米切尔</td><td>控卫</td><td>57</td><td>25.8</td><td>13.6</td><td>3.3</td><td>3.6</td><td>1.2</td><td>0.3</td></tr>
+                        <tr><td>11</td><td>以赛亚·乔</td><td>分卫</td><td>71</td><td>21.2</td><td>11.1</td><td>2.5</td><td>1.3</td><td>0.7</td><td>0.2</td></tr>
+                        <tr><td>3</td><td>贾里德·麦凯恩</td><td>分卫</td><td>30</td><td>18.0</td><td>10.4</td><td>2.1</td><td>0.9</td><td>0.4</td><td>0.1</td></tr>
+                        <tr><td>21</td><td>阿隆·维金斯</td><td>分卫</td><td>65</td><td>21.8</td><td>9.4</td><td>3.1</td><td>1.7</td><td>0.9</td><td>0.4</td></tr>
+                        <tr><td>55</td><td>以赛亚·哈尔滕施泰因</td><td>中锋</td><td>47</td><td>24.3</td><td>9.2</td><td class="highlight">9.4</td><td>3.5</td><td>1.0</td><td>0.8</td></tr>
+                        <tr><td>22</td><td>卡森·华莱士</td><td>分卫</td><td>77</td><td>26.6</td><td>8.6</td><td>3.1</td><td>2.6</td><td class="highlight">1.9</td><td>0.4</td></tr>
+                        <tr><td>5</td><td>吕冈茨·多尔特</td><td>小前</td><td>69</td><td>26.8</td><td>8.3</td><td>3.6</td><td>1.2</td><td>0.9</td><td>0.4</td></tr>
+                        <tr><td>6</td><td>杰林·威廉姆斯</td><td>大前</td><td>65</td><td>19.7</td><td>7.2</td><td>5.5</td><td>2.4</td><td>0.5</td><td>0.6</td></tr>
+                        <tr><td>9</td><td>亚历克斯·卡鲁索</td><td>分卫</td><td>56</td><td>18.3</td><td>6.2</td><td>2.8</td><td>2.0</td><td>1.3</td><td>0.3</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">教练与管理层</div>
+            <div class="card" style="display:flex; gap:48px; flex-wrap:wrap;">
+                <div>
+                    <div style="font-size:0.72rem;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:4px;">主教练</div>
+                    <div style="font-weight:600;">Mark Daigneault</div>
+                </div>
+                <div>
+                    <div style="font-size:0.72rem;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:4px;">总经理</div>
+                    <div style="font-weight:600;">Sam Presti</div>
+                </div>
+                <div>
+                    <div style="font-size:0.72rem;color:var(--text-muted);letter-spacing:1.5px;margin-bottom:4px;">主场</div>
+                    <div style="font-weight:600;">Paycom Center</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <a href="index.html">&copy; 2026 艾特的OKC</a> &middot; 数据来源 Basketball-Reference
+    </footer>
+
+</body>
+</html>

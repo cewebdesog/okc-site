@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>效率工具推荐 - 艾特的OKC</title>
+    <meta name="description" content="效率工具推荐，持续收录好用的软件和效率工具">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f5f5f7;
+            --card-bg: #fff;
+            --text: #1d1d1f;
+            --text-secondary: #6e6e73;
+            --text-muted: #86868b;
+            --accent: #FF6B00;
+            --accent-light: #fff7f0;
+            --border: #e8e8ed;
+            --header-bg: #1d1d1f;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: "Inter", -apple-system, "Microsoft YaHei", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .topbar {
+            background: var(--header-bg);
+            padding: 14px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            background: rgba(29,29,31,0.9);
+        }
+        .topbar-inner {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 28px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .topbar-logo {
+            font-family: "Noto Serif SC", "SimSun", serif;
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 700;
+            text-decoration: none;
+            letter-spacing: 2px;
+        }
+        .topbar-back {
+            color: #86868b;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        .topbar-back:hover { color: #fff; }
+
+        .hero {
+            background: var(--header-bg);
+            padding: 56px 28px 64px;
+            text-align: center;
+        }
+        .search-wrap {
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+        }
+        .search-wrap input {
+            width: 100%;
+            padding: 16px 52px 16px 24px;
+            border: none;
+            border-radius: 24px;
+            font-size: 1rem;
+            background: #fff;
+            color: var(--text);
+            outline: none;
+            font-family: inherit;
+            transition: box-shadow 0.3s;
+        }
+        .search-wrap input:focus { box-shadow: 0 0 0 4px rgba(255,107,0,0.15); }
+        .search-icon {
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            pointer-events: none;
+        }
+
+        .main {
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 56px 28px 80px;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 22px 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .card-icon { font-size: 1.8rem; }
+        .card-name { font-size: 0.95rem; font-weight: 600; letter-spacing: 0.3px; }
+        .card-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .no-result {
+            display: none;
+            text-align: center;
+            padding: 80px 20px;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+        .no-result.show { display: block; }
+
+        .footer {
+            text-align: center;
+            padding: 32px 28px 48px;
+            color: var(--text-muted);
+            font-size: 0.78rem;
+            border-top: 1px solid var(--border);
+        }
+        .footer a { color: var(--text-muted); text-decoration: none; }
+        .footer a:hover { color: var(--text); }
+
+        @media (max-width: 768px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 480px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .card { padding: 16px 14px; }
+            .hero { padding: 40px 20px 48px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="topbar">
+        <div class="topbar-inner">
+            <a href="index.html" class="topbar-back">← 返回</a>
+            <a href="tools.html" class="topbar-logo">效率工具</a>
+            <span style="width:40px"></span>
+        </div>
+    </div>
+
+    <div class="hero">
+        <div class="search-wrap">
+            <input type="text" id="searchInput" placeholder="搜索工具..." oninput="filterTools()">
+            <span class="search-icon">🔍</span>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="card-grid" id="cardGrid">
+            <div class="card" data-keywords="listary 快速启动 文件定位 启动器">
+                <div class="card-icon">🚀</div>
+                <div class="card-name">Listary</div>
+                <div class="card-desc">快速启动与文件定位</div>
+            </div>
+            <div class="card" data-keywords="power bi 数据可视化 商业分析 图表">
+                <div class="card-icon">📊</div>
+                <div class="card-name">Power BI</div>
+                <div class="card-desc">数据可视化与商业分析</div>
+            </div>
+            <div class="card" data-keywords="adguard 广告拦截 隐私保护 扩展 插件">
+                <div class="card-icon">🛡</div>
+                <div class="card-name">AdGuard</div>
+                <div class="card-desc">广告拦截与隐私保护扩展</div>
+            </div>
+            <div class="card" data-keywords="7zip bandizip 压缩 解压 文件">
+                <div class="card-icon">📦</div>
+                <div class="card-name">7-Zip / Bandizip</div>
+                <div class="card-desc">文件压缩与解压工具</div>
+            </div>
+            <div class="card" data-keywords="卡巴斯基 防病毒 安全 杀毒 防护">
+                <div class="card-icon">🔒</div>
+                <div class="card-name">卡巴斯基</div>
+                <div class="card-desc">防病毒与安全防护软件</div>
+            </div>
+            <div class="card" data-keywords="pinpix 截图 屏幕标注 截屏">
+                <div class="card-icon">✂</div>
+                <div class="card-name">PinPix</div>
+                <div class="card-desc">截图与屏幕标注工具</div>
+            </div>
+            <div class="card" data-keywords="office tab 多标签 office标签 word excel">
+                <div class="card-icon">📑</div>
+                <div class="card-name">Office Tab</div>
+                <div class="card-desc">为 Office 添加多标签页功能</div>
+            </div>
+            <div class="card" data-keywords="adobe pdf 处理 创意 设计 编辑">
+                <div class="card-icon">🎨</div>
+                <div class="card-name">Adobe</div>
+                <div class="card-desc">PDF 处理及创意设计软件</div>
+            </div>
+            <div class="card" data-keywords="abbyy ocr 文字识别 文档转换 扫描">
+                <div class="card-icon">🔍</div>
+                <div class="card-name">ABBYY</div>
+                <div class="card-desc">OCR 文字识别与文档转换</div>
+            </div>
+            <div class="card" data-keywords="notion 知识库 笔记 协作 平台">
+                <div class="card-icon">📝</div>
+                <div class="card-name">Notion</div>
+                <div class="card-desc">知识库、笔记与协作平台</div>
+            </div>
+            <div class="card" data-keywords="microsoft to do 任务管理 待办事项 计划">
+                <div class="card-icon">✅</div>
+                <div class="card-name">Microsoft To Do</div>
+                <div class="card-desc">任务管理与待办事项</div>
+            </div>
+            <div class="card" data-keywords="directory opus 文件管理器 资源管理器">
+                <div class="card-icon">📁</div>
+                <div class="card-name">Directory Opus</div>
+                <div class="card-desc">高级文件资源管理器</div>
+            </div>
+            <div class="card" data-keywords="anytxt 全文搜索 文本 内容 检索">
+                <div class="card-icon">🔎</div>
+                <div class="card-name">AnyTXT</div>
+                <div class="card-desc">全文本内容搜索引擎</div>
+            </div>
+            <div class="card" data-keywords="quicklook 快速预览 空格键 预览文件">
+                <div class="card-icon">👁</div>
+                <div class="card-name">QuickLook</div>
+                <div class="card-desc">空格键快速预览文件内容</div>
+            </div>
+            <div class="card" data-keywords="geek uninstaller 卸载 清理 残留 彻底">
+                <div class="card-icon">🗑</div>
+                <div class="card-name">Geek Uninstaller</div>
+                <div class="card-desc">彻底卸载程序并清理残留</div>
+            </div>
+            <div class="card" data-keywords="ditto 剪贴板 复制 粘贴 历史">
+                <div class="card-icon">📋</div>
+                <div class="card-name">Ditto</div>
+                <div class="card-desc">剪贴板历史管理</div>
+            </div>
+            <div class="card" data-keywords="stickies 桌面便签 便条 备忘">
+                <div class="card-icon">📌</div>
+                <div class="card-name">Stickies</div>
+                <div class="card-desc">桌面便签工具</div>
+            </div>
+            <div class="card" data-keywords="iobit unlocker 文件解锁 占用 强制">
+                <div class="card-icon">🔓</div>
+                <div class="card-name">IObit Unlocker</div>
+                <div class="card-desc">解除文件占用 / 强制解锁</div>
+            </div>
+            <div class="card" data-keywords="idm 下载 加速 多线程">
+                <div class="card-icon">⬇</div>
+                <div class="card-name">IDM</div>
+                <div class="card-desc">多线程下载加速器</div>
+            </div>
+            <div class="card" data-keywords="alist raidrive 网盘挂载 本地磁盘 云盘">
+                <div class="card-icon">☁</div>
+                <div class="card-name">Alist + RaiDrive</div>
+                <div class="card-desc">网盘挂载为本地磁盘</div>
+            </div>
+        </div>
+        <div class="no-result" id="noResult">没有匹配的工具，换个关键词试试</div>
+    </div>
+
+    <footer class="footer">
+        <a href="index.html">&copy; 2026 艾特的OKC</a>
+    </footer>
+
+    <script>
+        function filterTools() {
+            const query = document.getElementById('searchInput').value.trim().toLowerCase();
+            const cards = document.querySelectorAll('.card');
+            const noResult = document.getElementById('noResult');
+            let visibleCount = 0;
+            cards.forEach(card => {
+                const kw = card.getAttribute('data-keywords') || '';
+                const match = !query || kw.includes(query) || card.textContent.toLowerCase().includes(query);
+                card.style.display = match ? '' : 'none';
+                if (match) visibleCount++;
+            });
+            noResult.classList.toggle('show', visibleCount === 0);
+        }
+    </script>
+
+</body>
+</html>
